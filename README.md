@@ -49,7 +49,7 @@ Use random image selection for inference and display the prediction result.
 
 ## PROGRAM
 
-**Name: JANARTHANAN V K**
+**Name: JANARTHANAN V K** <BR>
 **Register Number: 212222230051**
 
 ```python
