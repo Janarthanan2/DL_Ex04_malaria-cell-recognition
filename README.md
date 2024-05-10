@@ -49,11 +49,11 @@ Use random image selection for inference and display the prediction result.
 
 ## PROGRAM
 
-### Name: JANARTHANAN V K
-### Register Number: 212222230051
-
+**Name: JANARTHANAN V K**
+**Register Number: 212222230051**
 
 ```python
+
 # to share the GPU
 import tensorflow as tf
 from tensorflow.compat.v1.keras.backend import set_session
@@ -78,10 +78,8 @@ from sklearn.metrics import classification_report,confusion_matrix
 
 my_data_dir = './dataset/cell_images'
 os.listdir(my_data_dir)
-
 test_path = my_data_dir+'/test/'
 train_path = my_data_dir+'/train/'
-
 os.listdir(train_path)
 len(os.listdir(train_path+'/uninfected/'))
 len(os.listdir(train_path+'/parasitized/'))
@@ -92,7 +90,6 @@ para_img= imread(train_path+
                  os.listdir(train_path+'/parasitized')[200])
 
 plt.imshow(para_img)
-
 # Checking the image dimensions
 dim1 = []
 dim2 = []
@@ -115,7 +112,6 @@ image_gen = ImageDataGenerator(rotation_range=20, # rotate the image 20 degrees
                                horizontal_flip=True, # Allo horizontal flipping
                                fill_mode='nearest' # Fill in missing pixels with the nearest filled value
                               )
-
 image_gen.flow_from_directory(train_path)
 image_gen.flow_from_directory(test_path)
 
@@ -124,26 +120,20 @@ model = models.Sequential()
 # Add convolutional layers
 model.add(layers.Conv2D(filters=32, kernel_size=(3,3),input_shape=image_shape, activation='relu'))
 model.add(layers.MaxPooling2D(pool_size=(2, 2)))
-
 model.add(layers.Conv2D(filters=64, kernel_size=(3,3),input_shape=image_shape, activation='relu'))
 model.add(layers.MaxPooling2D(pool_size=(2, 2)))
-
 model.add(layers.Conv2D(filters=64, kernel_size=(3,3),input_shape=image_shape, activation='relu'))
 model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
 # Flatten the layer
 model.add(layers.Flatten())
-
 # Add a dense layer
 model.add(layers.Dense(128, activation='relu'))
-
 # Output layer
 model.add(layers.Dense(1, activation='sigmoid'))
-
 model.compile(loss='binary_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
-
 model.summary()
 
 batch_size = 16
@@ -163,29 +153,21 @@ test_image_gen = image_gen.flow_from_directory(test_path,
                                                batch_size=batch_size,
                                                class_mode='binary',shuffle=False)
 train_image_gen.class_indices
-
 results = model.fit(train_image_gen,epochs=3,
                               validation_data=test_image_gen
                              )
-
 losses = pd.DataFrame(model.history.history)
 print("JANARTHANAN V K\n212222230051\n")
 losses[['loss','val_loss']].plot()
-
 model.metrics_names
-
 print("JANARTHANAN V K\n212222230051\n")
 model.evaluate(test_image_gen)
-
 pred_probabilities = model.predict(test_image_gen)
-
 print("JANARTHANAN V K\n212222230051\n")
 test_image_gen.classes
-
 predictions = pred_probabilities > 0.5
 print("JANARTHANAN V K\n212222230051\n")
 print(classification_report(test_image_gen.classes,predictions))
-
 print("JANARTHANAN V K\n212222230051\n")
 confusion_matrix(test_image_gen.classes,predictions)
 ```
